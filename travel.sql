@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 29-Jan-2017 às 14:20
+-- Generation Time: 08-Fev-2017 às 02:38
 -- Versão do servidor: 10.1.8-MariaDB
 -- PHP Version: 5.6.14
 
@@ -93,16 +93,20 @@ CREATE TABLE `tvlfriend` (
   `idTVLUser1` int(11) NOT NULL,
   `favorito` tinyint(1) NOT NULL,
   `seguir` tinyint(1) NOT NULL,
-  `horaFriend` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `hourFriend` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `seguir1` tinyint(1) NOT NULL,
+  `favorito1` tinyint(1) NOT NULL,
+  `pendente` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `tvlfriend`
 --
 
-INSERT INTO `tvlfriend` (`idTVLFriend`, `idTVLUser`, `idTVLUser1`, `favorito`, `seguir`, `horaFriend`) VALUES
-(1, 1, 1, 0, 1, '2017-01-27 14:45:15'),
-(2, 1, 16, 0, 1, '2017-01-27 14:46:20');
+INSERT INTO `tvlfriend` (`idTVLFriend`, `idTVLUser`, `idTVLUser1`, `favorito`, `seguir`, `hourFriend`, `seguir1`, `favorito1`, `pendente`) VALUES
+(8, 1, 15, 0, 1, '2017-02-06 19:54:37', 1, 0, 0),
+(9, 16, 15, 0, 1, '2017-02-04 16:42:51', 1, 0, 1),
+(10, 16, 1, 0, 1, '2017-02-06 19:59:14', 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -190,7 +194,8 @@ INSERT INTO `tvlpost` (`idTVLPost`, `idTVLGrupo`, `idTVLUser`, `horaPost`, `titu
 (5, NULL, 16, '2017-01-25 13:36:39', 'bora lá', 'novo teste com session user'),
 (6, NULL, 16, '2017-01-25 15:06:04', 'bora lá', 'sem user no construct'),
 (7, NULL, 1, '2017-01-26 10:41:23', 'teste', 'posssttttt'),
-(8, NULL, 16, '2017-01-26 20:30:41', 'será?', 'Alterou?');
+(8, NULL, 16, '2017-01-26 20:30:41', 'será?', 'Alterou?'),
+(9, NULL, 16, '2017-01-30 14:59:57', 'EAEEE GENTE', 'BORA BAILAR HOJE A NIGHT');
 
 -- --------------------------------------------------------
 
@@ -439,7 +444,7 @@ ALTER TABLE `tvlfoto`
 -- AUTO_INCREMENT for table `tvlfriend`
 --
 ALTER TABLE `tvlfriend`
-  MODIFY `idTVLFriend` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idTVLFriend` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `tvlgrupo`
 --
@@ -459,7 +464,7 @@ ALTER TABLE `tvlpais`
 -- AUTO_INCREMENT for table `tvlpost`
 --
 ALTER TABLE `tvlpost`
-  MODIFY `idTVLPost` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idTVLPost` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `tvltravel`
 --
