@@ -107,42 +107,6 @@ class UserController{
 		header('Location: /travel/');
 	}
 
-	public function friend(){
-
-		$idFriend	= $_GET['id'];
-		$idUser 	= $_SESSION['logar']->getIdTVLUser();
-
-		$dao = new UserDAO();
-
-		if($verify = $dao->verifyFriend($idUser, $idFriend)){
-			if($user = $dao->friend($idUser, $idFriend)){
-				$mensagem = 'Agora vocês são amiguinhos.';
-				require_once __DIR__."/../views/user/friend.php";
-			}else{
-				$mensagem = 'Acho que é o destino contra sua amizade.';
-				require_once __DIR__."/../views/mensagem.php";
-			}
-			return $view = true;
-		}else{
-			return $view = false;
-		}
-	}
-
-	public function verifyFriend(){
-
-		$idFriend	= $_GET['id'];
-		$idUser 	= $_SESSION['logar']->getIdTVLUser();
-
-		$dao = new UserDAO();
-
-		if($verify = $dao->verifyFriend($idUser, $idFriend)){
-			return true;
-		}else{
-			return false;
-		}
-
-	}
-
 }
 
 ?>

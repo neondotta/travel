@@ -1,10 +1,80 @@
 <h2>INDEX BITCH</h2>
 
 
-<a href="/travel/?r=post/insertUser">Criar Post</a>
-<a href="/travel/?r=post/listar&id=<?=$_SESSION['logar']->getIdTVLUser()?>">Listar Post</a>
-<a href="/travel/?r=user/insert">Criar Usuário</a>
-<a href="/travel/?r=user/lista">Listar Usuário</a>
+<div>
+	
+<?php
+
+	$list = new FriendController();
+	
+	$postFriend = $list->postFriend();
+
+	foreach ($postFriend as $post => $val) {
+
+?>
+	
+	<ul>
+		
+		<li><?=$val->getTitulo()?></li>
+	
+	</ul>
+	
+<?php
+	}
 
 
-<a href="/travel/?r=user/logout">Logout</a>
+	$listFriend = $list->listFriend();
+
+
+	foreach ($listFriend as $friend => $value) {
+		if($value->getIdTVLUser() == $_SESSION['logar']->getIdTVLUser()){
+	?>
+
+
+	<ul>
+		<li><?=$value->getIdTVLUser1()->getNome()?></li>
+		<li><?=$value->getIdTVLUser1()->getDataNascimento()?></li>	
+	<?php
+		}else{
+	?>
+		<li><?=$value->getIdTVLUser()->getNome()?></li>
+		<li><?=$value->getIdTVLUser()->getDataNascimento()?></li>		
+	<?php		
+		}
+	?>
+		<li>
+			<?php
+				if($value->getSeguir()){
+			?>
+				Seguindo
+			<?php
+				}else{
+			?>
+				Seguir ?
+			<?php
+				}
+			?>
+		</li>
+		<li>
+			Favorito:
+			<?php
+				if($value->getFavorito()){
+			?>
+				Sim
+			<?php
+				}else{
+			?>
+				Não
+			<?php
+				}
+			?>
+		</li>
+	</ul>
+
+<?php
+	}
+
+
+?>
+
+</div>

@@ -106,6 +106,38 @@ class PostDAO extends DAO{
 
 	}
 
+	public function postFriend($idFriend){
+
+		$sql = 'SELECT p.*, u.idtvluser,u.nome, u.email FROM tvlpost p
+				INNER JOIN tvluser u
+					USING(idTVLUser)
+				WHERE idTVLUser = :idFriend';
+
+		$query = $this->db()->prepare($sql);
+
+		$query->execute(array(':idFriend' => $idFriend));
+
+		$listaPost = array();
+
+		foreach ($query as $data) {
+			
+			$user = new User($data['nome'],$data['email'],$data['senha']);
+				$user->setIdTVLUser($data['idTVLUser']);
+
+			$post = new POST($data['texto']);
+				$post->setIdTVLPost($data['idTVLPost']);
+				$post->setTitulo($data['titulo']);
+				$post->setHoraPost($data['horaPost']);
+				$post->setIdTVLUser($user);
+
+			array_push($listaPost, $post);
+			
+		}
+
+		return $listaPost;
+
+	}
+
 }
 
 

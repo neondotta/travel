@@ -10,10 +10,9 @@ class User{
 	private $dataNascimento;
 	private $nivel;	
 
-	function __construct($nome, $email, $senha){
+	function __construct($nome, $email){
 		$this->setNome($nome);
 		$this->setEmail($email);
-		$this->setsenha($senha);
 	}
 
 	public function getIdTVLUser(){
@@ -59,7 +58,7 @@ class User{
 		return $this;
 	}
 	public function getNivel(){
-		return $this->idTVLUser;
+		return $this->nivel;
 	}
 	public function setNivel($nivel){
 		$this->nivel = $nivel;

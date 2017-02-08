@@ -57,18 +57,46 @@
 	                				</div>
 	                				<?php
 	                				if($_SESSION['logar']->getIdTVLUser() != $user->getIdTVLUser()):
-	                				?>
+	                   				?>
 										<div class="col-md-1">
 	              							<?php
-	              								foreach ($lista as $view) {
+	              								$userController = new FriendController();
+	              								$idUser = $_SESSION['logar']->getIdTVLUser();
+	              								$idFriend = $user->getIdTVLUser(); 
 	              								
-	              								if($view == true):
+	              								$verify = $userController->verifyFriend($idUser, $idFriend);
+
+	              								if($verify == 3){
+
 	              							?>
-	              							<a href="/travel/?r=user/friend&id=<?=$user->getIdTVLUser()?>">
-	              								Amizade
-	              							</a>										
+
+			              							<a href="/travel/?r=friend/confirmFriend&id=<?=$user->getIdTVLUser()?>">
+			              								Aceitar Solicitação.
+			              							</a>
+			              							<br>
+			              							<a href="/travel/?r=friend/deleteFriend&id=<?=$user->getIdTVLUser()?>">
+			              								Rejeitar Solicitação.
+			              							</a>										
+										
+											<?php
+	              								}else if($verify == 2){
+	              							?>
+			              				
+			              							Pendente
+
 	              							<?php
-	              								endif;	
+	              								}else if($verify == 1){
+	              							?>
+			              							<a href="/travel/?r=friend/deleteFriend&id=<?=$user->getIdTVLUser()?>">
+														Desfazer Amizade
+			              							</a>
+	              							<?php
+	              								}else{
+	              							?>
+			              							<a href="/travel/?r=friend/friend&id=<?=$user->getIdTVLUser()?>">
+			              								Criar Amizade
+			              							</a>	
+	              							<?php
 	              								}
 	              							?>
 	                					</div>

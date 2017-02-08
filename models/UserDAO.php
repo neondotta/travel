@@ -33,11 +33,12 @@ class UserDAO extends DAO{
 
         $data = $query->fetch();
 
-		$user = new User($data['nome'],$data['email'],$data['senha']);
-            $user->setIdTVLUser($data['idTVLUser']);
-            $user->setCpf($data['cpf']);
-            $user->setDataNascimento($data['dataNascimento']);
-            $user->setNivel($data['nivel']);
+			$user = new User($data['nome'],$data['email']);
+				$user->getIdTVLUser($data['idTVLUser']);
+				$user->setSenha($data['senha']);
+	            $user->setCpf($data['cpf']);
+	            $user->setDataNascimento($data['dataNascimento']);
+	            $user->setNivel($data['nivel']);
 
         return $user;
 
@@ -54,9 +55,10 @@ class UserDAO extends DAO{
 
 		foreach($query as $data){
 
-			$user = new User($data['nome'],$data['email'],$data['senha']);
-			$user->setIdTVLUser($data['idTVLUser']);
-			$user->setDataNascimento($data['dataNascimento']);
+			$user = new User($data['nome'],$data['email']);
+				$user->setSenha($data['senha']);
+				$user->setIdTVLUser($data['idTVLUser']);
+				$user->setDataNascimento($data['dataNascimento']);
 
 			array_push($lista, $user);
 
@@ -118,54 +120,15 @@ class UserDAO extends DAO{
 		if(empty($result)){
 			return false;
 		}else{
-			$user = new User($result['nome'],$result['email'],$result['pass']);
-			$user->setIdTVLUser($result['idTVLUser']);
-			$user->setDataNascimento($result['dataNascimento']);
+
+			$user = new User($result['nome'],$result['email']);
+				$user->setSenha($result['senha']);
+				$user->setIdTVLUser($result['idTVLUser']);
+				$user->setDataNascimento($result['dataNascimento']);
 
 			session_start();
 			$_SESSION['logar'] = $user;
 			return true;
-		}
-
-	}
-
-	public function friend($idUser, $idFriend){
-
-		$sql = 'INSERT INTO tvlfriend
-					(idTVLUser, idTVLUser1, favorito, seguir, horaFriend)
-				VALUES
-					(:idUser, :friend, :favorito, :seguir, NOW())
-				';
-
-		$query = $this->db()->prepare($sql);
-
-		$query->execute(array(
-			':idUser' 	=> $idUser,
-			':friend' 	=> $idFriend,
-			':favorito'	=> false,
-			':seguir'	=> true
-		));
-
-		return $this->db()->lastInsertId();
-
-	}
-
-	public function verifyFriend($idUser, $idFriend){
-
-		$sql = 'SELECT f.idTVLUser1, u.* FROM tvlfriend f
-				INNER JOIN tvluser u
-					USING(idtvluser)
-				WHERE idtvluser = :idUser 
-				AND   idtvluser1= :idFriend';
-
-		$query = $this->db()->prepare($sql);
-
-		$query->execute(array('idUser' => $idUser, 'idFriend' => $idFriend));
-
-		if($idUser == $idFriend){
-			return true;
-		}else{
-			return false;
 		}
 
 	}
